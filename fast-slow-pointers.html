@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fast & Slow Pointers | GDG DSA Playbook</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1020;
+            color: #f8fafc;
+            font-family: Arial, sans-serif;
+            padding: 35px 8%;
+        }
+
+        .top {
+            color: #a5b4fc;
+            margin-bottom: 35px;
+        }
+
+        .hero {
+            padding: 45px;
+            background: linear-gradient(135deg, #172554, #312e81);
+            border-radius: 22px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            color: #c4b5fd;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin: 18px 0;
+        }
+
+        .hero p, .card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .info {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .info span {
+            background: #ffffff18;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .card {
+            background: #151d32;
+            border: 1px solid #293550;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: #a5b4fc;
+        }
+
+        h3 {
+            margin: 15px 0;
+        }
+
+        .array {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .array span {
+            background: #312e81;
+            border: 1px solid #818cf8;
+            padding: 18px 22px;
+            border-radius: 12px;
+            font-size: 20px;
+            min-width: 55px;
+            text-align: center;
+        }
+
+        pre {
+            background: #080d19;
+            padding: 22px;
+            border-radius: 12px;
+            color: #a5f3fc;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #6366f1;
+        }
+
+        a {
+            color: #a5b4fc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .question {
+            margin: 14px 0;
+            line-height: 1.7;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        @media(max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top">GDG OIST / DSA PLAYBOOK</div>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+        <div class="tag">DSA PATTERN / 04</div>
+
+        <h1>Fast & Slow Pointers</h1>
+
+        <p>
+            Learn how two pointers moving at different speeds
+            can help detect cycles and solve linked list problems.
+        </p>
+
+        <div class="info">
+            <span>Beginner Friendly</span>
+            <span>Linked Lists</span>
+            <span>15 Min Read</span>
+        </div>
+    </section>
+
+    <!-- EXPLANATION -->
+
+    <section class="card">
+        <h2>01. What are Fast & Slow Pointers?</h2>
+
+        <p>
+            Fast and Slow Pointers is a technique where
+            two pointers move through a linked list
+            at different speeds.
+
+            The slow pointer moves one step at a time,
+            while the fast pointer moves two steps.
+
+            This technique is useful for detecting cycles
+            in linked lists.
+        </p>
+
+        <h3>Slow Pointer: 1 Step</h3>
+        <h3>Fast Pointer: 2 Steps</h3>
+    </section>
+
+    <!-- EXAMPLE -->
+
+    <section class="card">
+        <h2>02. Understand the Example</h2>
+
+        <p>Imagine a linked list containing a cycle.</p>
+
+        <div class="array">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
+
+        <p>Slow pointer moves one step.</p>
+        <p>Fast pointer moves two steps.</p>
+        <p>If both pointers meet, a cycle exists.</p>
+    </section>
+
+    <!-- INTERACTIVE VISUALIZER -->
+
+    <section class="card">
+        <h2>03. Interactive Pointer Visualizer</h2>
+
+        <p>
+            Click Next to see the slow and fast pointers
+            move at different speeds in a circular linked list.
+        </p>
+
+        <div class="array" id="fastSlowArray">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+        </div>
+
+        <h3 id="fastSlowStatus">Slow: 1 | Fast: 1</h3>
+
+        <p id="fastSlowMessage">
+            Both pointers start at node 1.
+        </p>
+
+        <p style="margin-top:12px;">
+            🟢 Slow Pointer &nbsp; 🔵 Fast Pointer
+        </p>
+
+        <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+            <button onclick="previousFastSlow()">Previous</button>
+            <button onclick="nextFastSlow()">Next</button>
+            <button onclick="resetFastSlow()">Reset</button>
+        </div>
+    </section>
+
+    <!-- PYTHON CODE -->
+
+    <section class="card">
+        <h2>04. Python Code</h2>
+
+        <pre>
+slow = head
+fast = head
+
+while fast != None and fast.next != None:
+
+    slow = slow.next
+    fast = fast.next.next
+
+    if slow == fast:
+        print("Cycle Found")
+        break
+        </pre>
+    </section>
+
+    <!-- PRACTICE QUESTIONS -->
+
+    <section class="card">
+        <h2>05. Practice Questions</h2>
+
+        <h3>Beginner</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank">
+                1. Middle of the Linked List
+            </a>
+        </p>
+
+        <h3>Intermediate</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank">
+                2. Linked List Cycle
+            </a>
+        </p>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank">
+                3. Linked List Cycle II
+            </a>
+        </p>
+
+        <h3>Challenge</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/happy-number/" target="_blank">
+                4. Happy Number
+            </a>
+        </p>
+    </section>
+
+    <a href="index.html" class="back">← Back to Home</a>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        let slowPosition = 0;
+        let fastPosition = 0;
+        let totalNodes = 5;
+        let fastSlowStep = 0;
+
+        function updateFastSlow() {
+
+            let boxes = document.querySelectorAll("#fastSlowArray span");
+
+            for (let i = 0; i < totalNodes; i++) {
+                boxes[i].style.background = "#312e81";
+            }
+
+            boxes[slowPosition].style.background = "#16a34a";
+            boxes[fastPosition].style.background = "#2563eb";
+
+            if (slowPosition === fastPosition && fastSlowStep > 0) {
+                boxes[slowPosition].style.background = "#9333ea";
+            }
+
+            document.getElementById("fastSlowStatus").innerText =
+                "Slow: " + (slowPosition + 1) +
+                " | Fast: " + (fastPosition + 1);
+
+            if (slowPosition === fastPosition && fastSlowStep > 0) {
+                document.getElementById("fastSlowMessage").innerText =
+                    "Both pointers met! Cycle detected.";
+            } else {
+                document.getElementById("fastSlowMessage").innerText =
+                    "Slow moves 1 step. Fast moves 2 steps.";
+            }
+        }
+
+        function nextFastSlow() {
+
+            if (fastSlowStep < 4) {
+                slowPosition = (slowPosition + 1) % totalNodes;
+                fastPosition = (fastPosition + 2) % totalNodes;
+
+                fastSlowStep++;
+
+                updateFastSlow();
+            }
+        }
+
+        function previousFastSlow() {
+
+            if (fastSlowStep > 0) {
+                fastSlowStep--;
+
+                slowPosition = (slowPosition - 1 + totalNodes) % totalNodes;
+                fastPosition = (fastPosition - 2 + totalNodes) % totalNodes;
+
+                updateFastSlow();
+            }
+        }
+
+        function resetFastSlow() {
+
+            slowPosition = 0;
+            fastPosition = 0;
+            fastSlowStep = 0;
+
+            updateFastSlow();
+        }
+
+        updateFastSlow();
+    </script>
+
+</body>
+</html>

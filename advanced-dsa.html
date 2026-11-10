@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced DSA | DSA Playbook</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#0b1020;color:#e8ecf8;line-height:1.7}
+header{padding:22px 8%;background:#111a30;border-bottom:1px solid #26334f}
+header a{color:#a8baff;text-decoration:none;font-weight:bold}
+main{max-width:950px;margin:auto;padding:45px 22px}
+.hero{padding:35px;background:linear-gradient(135deg,#17294b,#20204a);border:1px solid #34456b;border-radius:18px;margin-bottom:28px}
+.tag{color:#9fb5ff;font-size:13px;letter-spacing:2px}
+h1{font-size:38px;margin:8px 0}
+h2{color:#a9bcff;margin:28px 0 12px}
+h3{color:#d5deff;margin:18px 0 8px}
+.card{background:#121b30;border:1px solid #283653;border-radius:14px;padding:22px;margin:18px 0}
+p,li{color:#c5cde0}
+ul,ol{padding-left:22px}
+pre{background:#080d19;color:#a9e6c0;padding:16px;border-radius:10px;overflow-x:auto;margin:12px 0}
+code{font-family:Consolas,monospace}
+.note{color:#a9bcff}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:30px}
+.nav a{background:#263b68;color:white;text-decoration:none;padding:12px 18px;border-radius:9px}
+footer{text-align:center;color:#8995ad;padding:25px}
+</style>
+</head>
+<body>
+<header><a href="index.html">← DSA PLAYBOOK | GDG OIST</a></header>
+<main>
+<section class="hero">
+<div class="tag">ROADMAP 04 / ADVANCED LEVEL</div>
+<h1>Advanced DSA</h1>
+<p>Explore trees, graphs, greedy algorithms and dynamic programming to solve complex problems efficiently.</p>
+</section>
+
+<div class="card">
+<h2>1. Trees</h2>
+<p>A tree is a non-linear data structure made of nodes connected by edges. It has a root node and child nodes. A tree with n nodes has n - 1 edges.</p>
+<h3>Important Terminology</h3>
+<ul>
+<li><b>Root:</b> The topmost node.</li>
+<li><b>Parent:</b> A node that has children.</li>
+<li><b>Child:</b> A node connected below a parent.</li>
+<li><b>Leaf:</b> A node with no children.</li>
+<li><b>Height:</b> The longest downward path from a node to a leaf, measured in edges.</li>
+<li><b>Depth:</b> The number of edges from the root to a node.</li>
+</ul>
+<h3>Binary Tree</h3>
+<p>A binary tree is a tree in which each node has at most two children: left and right.</p>
+<pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+root = Node(10)
+root.left = Node(20)
+root.right = Node(30)
+
+print(root.data)
+print(root.left.data)
+print(root.right.data)</code></pre>
+<h3>Tree Traversals</h3>
+<p>Traversal means visiting every node in a particular order.</p>
+<ul>
+<li><b>Inorder:</b> Left, Root, Right.</li>
+<li><b>Preorder:</b> Root, Left, Right.</li>
+<li><b>Postorder:</b> Left, Right, Root.</li>
+</ul>
+<pre><code>def inorder(root):
+    if root is not None:
+        inorder(root.left)
+        print(root.data)
+        inorder(root.right)
+
+def preorder(root):
+    if root is not None:
+        print(root.data)
+        preorder(root.left)
+        preorder(root.right)
+
+def postorder(root):
+    if root is not None:
+        postorder(root.left)
+        postorder(root.right)
+        print(root.data)</code></pre>
+<p class="note">Tree traversal takes O(n) time because each node is visited once. Recursive space is O(h), where h is tree height.</p>
+<h3>Binary Search Tree (BST)</h3>
+<p>A BST is a binary tree where values smaller than a node are placed in its left subtree and values greater than a node are placed in its right subtree.</p>
+<p>Search, insertion and deletion take O(log n) on average in a balanced BST, but O(n) in the worst case when the tree becomes skewed.</p>
+</div>
+
+<div class="card">
+<h2>2. Graphs</h2>
+<p>A graph consists of vertices (nodes) and edges (connections). Graphs can be directed or undirected, weighted or unweighted.</p>
+<h3>Graph Representation</h3>
+<p>An adjacency list stores each vertex with a list of its neighboring vertices.</p>
+<pre><code>graph = {
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A", "D"],
+    "D": ["B", "C"]
+}
+
+print(graph["A"])</code></pre>
+<h3>Breadth First Search (BFS)</h3>
+<p>BFS visits nodes level by level. It uses a queue and is useful for finding the shortest path in an unweighted graph.</p>
+<pre><code>from collections import deque
+
+graph = {
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A", "D"],
+    "D": ["B", "C"]
+}
+
+visited = set()
+queue = deque(["A"])
+visited.add("A")
+
+while queue:
+    node = queue.popleft()
+    print(node)
+
+    for neighbour in graph[node]:
+        if neighbour not in visited:
+            visited.add(neighbour)
+            queue.append(neighbour)</code></pre>
+<h3>Depth First Search (DFS)</h3>
+<p>DFS explores one path as deeply as possible before going back. It can be implemented using recursion or a stack.</p>
+<pre><code>graph = {
+    "A": ["B", "C"],
+    "B": ["A", "D"],
+    "C": ["A", "D"],
+    "D": ["B", "C"]
+}
+
+visited = set()
+
+def dfs(node):
+    visited.add(node)
+    print(node)
+
+    for neighbour in graph[node]:
+        if neighbour not in visited:
+            dfs(neighbour)
+
+dfs("A")</code></pre>
+<p class="note">BFS and DFS take O(V + E) time using an adjacency list, where V is vertices and E is edges.</p>
+<h3>Shortest Path Basics</h3>
+<ul>
+<li>BFS finds shortest paths in unweighted graphs.</li>
+<li>Dijkstra's algorithm finds shortest paths when edge weights are non-negative.</li>
+<li>Bellman-Ford can handle negative edge weights and detect reachable negative cycles.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>3. Greedy Algorithms</h2>
+<p>A greedy algorithm makes the best-looking choice at each step, hoping to reach an overall optimal solution. It works only when the problem has the right greedy properties.</p>
+<h3>Activity Selection</h3>
+<p>Choose the maximum number of non-overlapping activities by sorting them by finishing time and selecting each activity that starts after the last selected activity ends.</p>
+<pre><code>activities = [
+    (1, 3),
+    (2, 4),
+    (3, 5),
+    (6, 7),
+    (5, 9)
+]
+
+activities.sort(key=lambda item: item[1])
+
+selected = []
+last_end = -1
+
+for activity in activities:
+    start = activity[0]
+    end = activity[1]
+
+    if start >= last_end:
+        selected.append(activity)
+        last_end = end
+
+print(selected)</code></pre>
+<p class="note">Time: O(n log n) because of sorting. The selection scan takes O(n).</p>
+<h3>Other Greedy Problems</h3>
+<ul>
+<li>Fractional Knapsack.</li>
+<li>Activity Selection.</li>
+<li>Job Sequencing with Deadlines.</li>
+<li>Minimum number of coins for suitable coin systems.</li>
+<li>Interval scheduling and merging.</li>
+</ul>
+<p>Important: Greedy does not always give the optimal answer. For example, the general 0/1 Knapsack problem needs a different approach such as Dynamic Programming.</p>
+</div>
+
+<div class="card">
+<h2>4. Dynamic Programming (DP)</h2>
+<p>Dynamic Programming solves problems by breaking them into overlapping subproblems and storing their answers so the same work is not repeated.</p>
+<h3>Two Main Approaches</h3>
+<ul>
+<li><b>Memoization:</b> Top-down approach. Solve recursively and store results.</li>
+<li><b>Tabulation:</b> Bottom-up approach. Build answers iteratively in a table.</li>
+</ul>
+<h3>Fibonacci using Memoization</h3>
+<pre><code>def fibonacci(n, dp):
+    if n <= 1:
+        return n
+
+    if dp[n] != -1:
+        return dp[n]
+
+    dp[n] = fibonacci(n - 1, dp) + fibonacci(n - 2, dp)
+    return dp[n]
+
+n = 6
+dp = [-1] * (n + 1)
+
+print(fibonacci(n, dp))</code></pre>
+<p class="note">Time: O(n) | Space: O(n) for the DP array and recursion stack.</p>
+<h3>Fibonacci using Tabulation</h3>
+<pre><code>n = 6
+dp = [0] * (n + 1)
+
+if n >= 1:
+    dp[1] = 1
+
+for i in range(2, n + 1):
+    dp[i] = dp[i - 1] + dp[i - 2]
+
+print(dp[n])</code></pre>
+<p class="note">Time: O(n) | Space: O(n).</p>
+<h3>0/1 Knapsack</h3>
+<p>Given items with weights and values, choose items to maximize total value without exceeding the capacity. Each item can be selected at most once.</p>
+<pre><code>weights = [1, 3, 4, 5]
+values = [1, 4, 5, 7]
+capacity = 7
+n = len(weights)
+
+dp = [[0] * (capacity + 1) for i in range(n + 1)]
+
+for i in range(1, n + 1):
+    for w in range(capacity + 1):
+        dp[i][w] = dp[i - 1][w]
+
+        if weights[i - 1] <= w:
+            value = values[i - 1] + dp[i - 1][w - weights[i - 1]]
+
+            if value > dp[i][w]:
+                dp[i][w] = value
+
+print("Maximum value:", dp[n][capacity])</code></pre>
+<p class="note">Time: O(n × capacity) | Space: O(n × capacity).</p>
+<h3>Longest Common Subsequence (LCS)</h3>
+<p>LCS finds the longest sequence that appears in two strings in the same relative order, not necessarily continuously.</p>
+<pre><code>a = "abcde"
+b = "ace"
+n = len(a)
+m = len(b)
+
+dp = [[0] * (m + 1) for i in range(n + 1)]
+
+for i in range(1, n + 1):
+    for j in range(1, m + 1):
+        if a[i - 1] == b[j - 1]:
+            dp[i][j] = 1 + dp[i - 1][j - 1]
+        else:
+            dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+print("LCS length:", dp[n][m])</code></pre>
+<p class="note">Time: O(n × m) | Space: O(n × m).</p>
+<h3>How to Identify a DP Problem</h3>
+<ul>
+<li>The problem can be divided into smaller states.</li>
+<li>The same subproblems appear repeatedly.</li>
+<li>The answer can be built from answers to smaller subproblems.</li>
+<li>You need to find an optimal value or count possible ways.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>5. Advanced DSA Practice Questions</h2>
+<ol>
+<li>Find the height of a binary tree.</li>
+<li>Implement inorder, preorder and postorder traversal.</li>
+<li>Search for a value in a Binary Search Tree.</li>
+<li>Implement BFS and DFS on a graph.</li>
+<li>Find the shortest path in an unweighted graph.</li>
+<li>Solve the Activity Selection problem.</li>
+<li>Understand Fractional Knapsack and 0/1 Knapsack.</li>
+<li>Find the nth Fibonacci number using DP.</li>
+<li>Solve the Longest Common Subsequence problem.</li>
+<li>Practice Coin Change and Climbing Stairs problems.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>6. Final DSA Learning Checklist</h2>
+<ul>
+<li>Understand basic tree terminology and traversals.</li>
+<li>Know the difference between BFS and DFS.</li>
+<li>Understand when a greedy approach works.</li>
+<li>Know memoization and tabulation.</li>
+<li>Practice classic Dynamic Programming problems.</li>
+<li>Analyze time and space complexity for every solution.</li>
+</ul>
+</div>
+
+<div class="nav">
+<a href="problem-solving.html">← Previous: Problem Solving</a>
+<a href="index.html">Back to Home</a>
+</div>
+</main>
+<footer>DSA Playbook | GDG OIST</footer>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures | DSA Playbook</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#0b1020;color:#e8ecf8;line-height:1.7}
+header{padding:22px 8%;background:#111a30;border-bottom:1px solid #26334f}
+header a{color:#a8baff;text-decoration:none;font-weight:bold}
+main{max-width:950px;margin:auto;padding:45px 22px}
+.hero{padding:35px;background:linear-gradient(135deg,#17294b,#20204a);border:1px solid #34456b;border-radius:18px;margin-bottom:28px}
+.tag{color:#9fb5ff;font-size:13px;letter-spacing:2px}
+h1{font-size:38px;margin:8px 0}
+h2{color:#a9bcff;margin:28px 0 12px}
+h3{color:#d5deff;margin:18px 0 8px}
+.card{background:#121b30;border:1px solid #283653;border-radius:14px;padding:22px;margin:18px 0}
+p,li{color:#c5cde0}
+ul,ol{padding-left:22px}
+pre{background:#080d19;color:#a9e6c0;padding:16px;border-radius:10px;overflow-x:auto;margin:12px 0}
+code{font-family:Consolas,monospace}
+.note{color:#a9bcff}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:30px}
+.nav a{background:#263b68;color:white;text-decoration:none;padding:12px 18px;border-radius:9px}
+footer{text-align:center;color:#8995ad;padding:25px}
+</style>
+</head>
+<body>
+<header><a href="index.html">← DSA PLAYBOOK | GDG OIST</a></header>
+<main>
+<section class="hero">
+<div class="tag">ROADMAP 02 / CORE CONCEPTS</div>
+<h1>Data Structures</h1>
+<p>Learn how data is organized, stored and accessed efficiently in computer programs.</p>
+</section>
+
+<div class="card">
+<h2>1. Arrays</h2>
+<p>An array stores multiple elements in an ordered sequence. Python uses lists as its flexible built-in array-like structure. Indexing starts from 0.</p>
+<h3>Access and Traversal</h3>
+<pre><code>arr = [10, 20, 30, 40]
+
+print(arr[0])
+
+for item in arr:
+    print(item)</code></pre>
+<h3>Insertion and Deletion</h3>
+<pre><code>arr = [10, 20, 30]
+
+arr.append(40)
+arr.insert(1, 15)
+print(arr)
+
+arr.remove(20)
+print(arr)</code></pre>
+<h3>Searching</h3>
+<pre><code>arr = [5, 10, 15, 20]
+target = 15
+
+for i in range(len(arr)):
+    if arr[i] == target:
+        print("Found at index", i)
+        break</code></pre>
+<p class="note">Typical list costs: indexing O(1), searching O(n), appending O(1) amortized, inserting/deleting near the beginning O(n).</p>
+</div>
+
+<div class="card">
+<h2>2. Strings</h2>
+<p>A string is a sequence of characters. Strings in Python are immutable, which means their characters cannot be changed directly.</p>
+<h3>Traversal</h3>
+<pre><code>text = "PYTHON"
+
+for char in text:
+    print(char)</code></pre>
+<h3>Reverse a String</h3>
+<pre><code>text = "hello"
+reversed_text = text[::-1]
+print(reversed_text)</code></pre>
+<h3>Palindrome Check</h3>
+<p>A palindrome reads the same forward and backward.</p>
+<pre><code>text = "madam"
+
+if text == text[::-1]:
+    print("Palindrome")
+else:
+    print("Not Palindrome")</code></pre>
+<h3>Count Characters</h3>
+<pre><code>text = "banana"
+count = 0
+
+for char in text:
+    if char == "a":
+        count = count + 1
+
+print(count)</code></pre>
+<p class="note">String traversal takes O(n). Creating a reversed string also takes O(n) time and additional space.</p>
+</div>
+
+<div class="card">
+<h2>3. Linked Lists</h2>
+<p>A linked list is a sequence of nodes. Each node stores data and a reference to the next node. Unlike arrays, linked-list nodes do not need to be stored next to each other in memory.</p>
+<h3>Singly Linked List</h3>
+<pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+first = Node(10)
+second = Node(20)
+third = Node(30)
+
+first.next = second
+second.next = third
+
+current = first
+
+while current is not None:
+    print(current.data)
+    current = current.next</code></pre>
+<h3>Types of Linked Lists</h3>
+<ul>
+<li><b>Singly Linked List:</b> Each node points to the next node.</li>
+<li><b>Doubly Linked List:</b> Each node points to both previous and next nodes.</li>
+<li><b>Circular Linked List:</b> The last node connects back to the first node.</li>
+</ul>
+<p class="note">Accessing an element by position takes O(n). Inserting at the head takes O(1).</p>
+</div>
+
+<div class="card">
+<h2>4. Stacks</h2>
+<p>A stack follows LIFO: Last In, First Out. The last element added is the first one removed.</p>
+<p>Common operations: push (add), pop (remove), peek (view top).</p>
+<pre><code>stack = []
+
+stack.append(10)
+stack.append(20)
+stack.append(30)
+
+print("Top:", stack[-1])
+
+removed = stack.pop()
+print("Removed:", removed)
+print("Stack:", stack)</code></pre>
+<p>Applications include undo operations, browser history, function calls and expression evaluation.</p>
+<p class="note">Push and pop at the end of a Python list are O(1) amortized.</p>
+</div>
+
+<div class="card">
+<h2>5. Queues</h2>
+<p>A queue follows FIFO: First In, First Out. The first element added is the first one removed.</p>
+<p>Common operations: enqueue (add), dequeue (remove), front (view first).</p>
+<pre><code>from collections import deque
+
+queue = deque()
+
+queue.append(10)
+queue.append(20)
+queue.append(30)
+
+print("Front:", queue[0])
+
+removed = queue.popleft()
+print("Removed:", removed)
+print("Queue:", queue)</code></pre>
+<p>Applications include task scheduling, printer queues and Breadth First Search (BFS).</p>
+<p class="note">Appending and removing from the front using deque are O(1).</p>
+</div>
+
+<div class="card">
+<h2>6. Hashing</h2>
+<p>Hashing uses a hash function to map a key to a location. Python dictionaries and sets use hash tables internally.</p>
+<h3>Dictionary</h3>
+<pre><code>student = {
+    "name": "Aman",
+    "age": 20,
+    "course": "AIML"
+}
+
+print(student["name"])
+student["age"] = 21
+print(student)</code></pre>
+<h3>Set</h3>
+<p>A set stores unique elements and removes duplicates.</p>
+<pre><code>numbers = [1, 2, 2, 3, 3, 4]
+unique_numbers = set(numbers)
+
+print(unique_numbers)</code></pre>
+<h3>Frequency Counting</h3>
+<pre><code>arr = [1, 2, 2, 3, 1, 2]
+frequency = {}
+
+for number in arr:
+    if number in frequency:
+        frequency[number] = frequency[number] + 1
+    else:
+        frequency[number] = 1
+
+print(frequency)</code></pre>
+<p class="note">Dictionary and set lookup are O(1) on average, but can be O(n) in the worst case.</p>
+</div>
+
+<div class="card">
+<h2>7. Practice Questions</h2>
+<ol>
+<li>Find the largest element in an array.</li>
+<li>Find the second largest element in an array.</li>
+<li>Reverse an array without using reverse().</li>
+<li>Check whether a string is a palindrome.</li>
+<li>Count vowels in a string.</li>
+<li>Implement a singly linked list.</li>
+<li>Implement a stack using a list.</li>
+<li>Implement a queue using deque.</li>
+<li>Count the frequency of each element in an array.</li>
+<li>Remove duplicate elements from a list.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>8. What You Should Know Before Moving Ahead</h2>
+<ul>
+<li>Understand how arrays and strings work.</li>
+<li>Know the difference between stacks and queues.</li>
+<li>Understand nodes and links in linked lists.</li>
+<li>Use dictionaries and sets for fast lookups.</li>
+</ul>
+</div>
+
+<div class="nav">
+<a href="foundations.html">← Previous: Foundations</a>
+<a href="index.html">Back to Home</a>
+<a href="problem-solving.html">Next: Problem Solving →</a>
+</div>
+</main>
+<footer>DSA Playbook | GDG OIST</footer>
+</body>
+</html>

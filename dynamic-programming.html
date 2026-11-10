@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Programming | DSA Playbook</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#080d20,#17133b,#101b38);color:#f8fafc;padding:30px 18px}
+.container{max-width:950px;margin:auto}
+.hero,.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:28px;margin-bottom:22px}
+.tag{color:#a5b4fc;font-size:13px;letter-spacing:2px}
+h1{font-size:42px;margin:12px 0;background:linear-gradient(90deg,#fff,#a5b4fc);-webkit-background-clip:text;color:transparent}
+h2{color:#c4b5fd}
+p,li{color:#cbd5e1;line-height:1.7}
+.code{background:#080d1b;padding:20px;border-radius:12px;overflow-x:auto;color:#a7f3d0;line-height:1.7}
+button{background:#4f46e5;color:white;border:0;padding:12px 20px;border-radius:10px;cursor:pointer;margin:5px}
+button:hover{background:#6366f1}
+.output{background:#080d1b;padding:18px;border-radius:12px;color:#a5f3fc;min-height:55px;line-height:1.7}
+table{width:100%;border-collapse:collapse;margin:15px 0}
+td,th{border:1px solid #475569;padding:12px;text-align:center}
+th{background:#312e81}
+a{color:#a5b4fc;text-decoration:none}
+a:hover{text-decoration:underline}
+.question{padding:12px 0;border-bottom:1px solid #334155}
+@media(max-width:600px){h1{font-size:32px}.hero,.card{padding:20px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<section class="hero">
+<span class="tag">DSA PLAYBOOK / PATTERN 06</span>
+<h1>Dynamic Programming</h1>
+<p>Solve complex problems by breaking them into smaller overlapping subproblems and storing their answers.</p>
+</section>
+
+<section class="card">
+<h2>01. What is Dynamic Programming?</h2>
+<p>Dynamic Programming (DP) is an algorithm technique that avoids solving the same subproblem again and again by storing previously calculated results.</p>
+<ul>
+<li>Break a problem into smaller subproblems.</li>
+<li>Store answers to repeated subproblems.</li>
+<li>Reuse stored answers to save time.</li>
+</ul>
+</section>
+
+<section class="card">
+<h2>02. Fibonacci Example</h2>
+<p>Fibonacci numbers are calculated by adding the previous two numbers.</p>
+<p>Formula: F(n) = F(n - 1) + F(n - 2)</p>
+<p>Sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21...</p>
+</section>
+
+<section class="card">
+<h2>03. Interactive DP Table</h2>
+<p>Click Next to calculate Fibonacci numbers and fill the DP table.</p>
+<div class="output" id="dpMessage">Start calculating from F(0).</div>
+<table>
+<thead><tr><th>n</th><th>DP[n]</th></tr></thead>
+<tbody id="dpTable">
+<tr><td>0</td><td>Not calculated</td></tr>
+<tr><td>1</td><td>Not calculated</td></tr>
+<tr><td>2</td><td>Not calculated</td></tr>
+<tr><td>3</td><td>Not calculated</td></tr>
+<tr><td>4</td><td>Not calculated</td></tr>
+<tr><td>5</td><td>Not calculated</td></tr>
+<tr><td>6</td><td>Not calculated</td></tr>
+</tbody>
+</table>
+<p id="dpCount">Step: 0 / 7</p>
+<button onclick="previousDP()">Previous</button>
+<button onclick="nextDP()">Next</button>
+<button onclick="resetDP()">Reset</button>
+</section>
+
+<section class="card">
+<h2>04. Python Code</h2>
+<pre class="code"><code>dp = [0] * 7
+
+dp[0] = 0
+dp[1] = 1
+
+for i in range(2, 7):
+    dp[i] = dp[i - 1] + dp[i - 2]
+
+print(dp)</code></pre>
+<p>Here, the list <code>dp</code> stores the answers so we do not calculate them repeatedly.</p>
+</section>
+
+<section class="card">
+<h2>05. Practice Questions</h2>
+<div class="question"><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank">1. Climbing Stairs — LeetCode</a></div>
+<div class="question"><a href="https://leetcode.com/problems/house-robber/" target="_blank">2. House Robber — LeetCode</a></div>
+<div class="question"><a href="https://leetcode.com/problems/coin-change/" target="_blank">3. Coin Change — LeetCode</a></div>
+<div class="question"><a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank">4. Longest Increasing Subsequence — LeetCode</a></div>
+</section>
+
+<p style="text-align:center"><a href="index.html">← Back to Home</a></p>
+</div>
+
+<script>
+let dpValues = [0, 1, 1, 2, 3, 5, 8];
+let dpPosition = 0;
+
+function updateDP(){
+    let rows = "";
+    for(let i = 0; i < 7; i++){
+        rows += "<tr><td>" + i + "</td><td>" +
+            (i < dpPosition ? dpValues[i] : "Not calculated") +
+            "</td></tr>";
+    }
+    document.getElementById("dpTable").innerHTML = rows;
+
+    if(dpPosition === 0){
+        document.getElementById("dpMessage").innerText = "Start calculating from F(0).";
+    }else{
+        document.getElementById("dpMessage").innerText =
+            "F(" + (dpPosition - 1) + ") = " + dpValues[dpPosition - 1];
+    }
+    document.getElementById("dpCount").innerText = "Step: " + dpPosition + " / 7";
+}
+function nextDP(){
+    if(dpPosition < 7){dpPosition++;updateDP();}
+}
+function previousDP(){
+    if(dpPosition > 0){dpPosition--;updateDP();}
+}
+function resetDP(){dpPosition=0;updateDP();}
+updateDP();
+</script>
+
+</body>
+</html>

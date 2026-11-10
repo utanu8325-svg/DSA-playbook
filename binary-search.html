@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Binary Search | GDG DSA Playbook</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1020;
+            color: #f8fafc;
+            font-family: Arial, sans-serif;
+            padding: 35px 8%;
+        }
+
+        .top {
+            color: #a5b4fc;
+            margin-bottom: 35px;
+        }
+
+        .hero {
+            padding: 45px;
+            background: linear-gradient(135deg, #172554, #312e81);
+            border-radius: 22px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            color: #c4b5fd;
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin: 18px 0;
+        }
+
+        .hero p, .card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        .info {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .info span {
+            background: #ffffff18;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .card {
+            background: #151d32;
+            border: 1px solid #293550;
+            padding: 28px;
+            border-radius: 18px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: #a5b4fc;
+        }
+
+        h3 {
+            margin: 15px 0;
+        }
+
+        .array {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+
+        .array span {
+            background: #312e81;
+            border: 1px solid #818cf8;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 20px;
+            min-width: 55px;
+            text-align: center;
+        }
+
+        pre {
+            background: #080d19;
+            padding: 22px;
+            border-radius: 12px;
+            color: #a5f3fc;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+
+        button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #6366f1;
+        }
+
+        a {
+            color: #a5b4fc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .question {
+            margin: 14px 0;
+            line-height: 1.7;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        @media(max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top">GDG OIST / DSA PLAYBOOK</div>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+        <div class="tag">DSA PATTERN / 03</div>
+
+        <h1>Binary Search</h1>
+
+        <p>
+            Learn how to search efficiently in a sorted array
+            by repeatedly dividing the search space into half.
+        </p>
+
+        <div class="info">
+            <span>Beginner Friendly</span>
+            <span>Arrays & Searching</span>
+            <span>15 Min Read</span>
+        </div>
+    </section>
+
+    <!-- EXPLANATION -->
+
+    <section class="card">
+        <h2>01. What is Binary Search?</h2>
+
+        <p>
+            Binary Search is an efficient searching technique
+            used on sorted arrays.
+
+            It checks the middle element and eliminates half
+            of the search space in every step.
+        </p>
+
+        <h3>Time Complexity: O(log n)</h3>
+        <h3>Space Complexity: O(1)</h3>
+    </section>
+
+    <!-- EXAMPLE -->
+
+    <section class="card">
+        <h2>02. Understand the Example</h2>
+
+        <p>Find the target number 7 in this sorted array.</p>
+
+        <div class="array">
+            <span>1</span>
+            <span>3</span>
+            <span>5</span>
+            <span>7</span>
+            <span>9</span>
+            <span>11</span>
+        </div>
+
+        <p>Middle element = 5</p>
+        <p>7 is greater than 5, so search the right half.</p>
+        <p>Middle element = 7</p>
+        <p>Answer = 7</p>
+    </section>
+
+    <!-- INTERACTIVE VISUALIZER -->
+
+    <section class="card">
+        <h2>03. Interactive Binary Search</h2>
+
+        <p>
+            Find target 7. Click Next to see how Binary Search
+            reduces the search space.
+        </p>
+
+        <div class="array" id="binaryArray">
+            <span>1</span>
+            <span>3</span>
+            <span>5</span>
+            <span>7</span>
+            <span>9</span>
+            <span>11</span>
+        </div>
+
+        <div class="legend">
+            <span>🔵 Middle</span>
+            <span>🟣 Search Range</span>
+            <span>🟢 Found</span>
+        </div>
+
+        <h3 id="binaryStatus">Left: 0 | Right: 5</h3>
+
+        <h3 id="binaryMiddle">Middle: 5</h3>
+
+        <p id="binaryMessage">
+            Compare middle element with target 7.
+        </p>
+
+        <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+            <button onclick="previousBinary()">Previous</button>
+            <button onclick="nextBinary()">Next</button>
+            <button onclick="resetBinary()">Reset</button>
+        </div>
+    </section>
+
+    <!-- PYTHON CODE -->
+
+    <section class="card">
+        <h2>04. Python Code</h2>
+
+        <pre>
+arr = [1, 3, 5, 7, 9, 11]
+
+target = 7
+
+left = 0
+right = len(arr) - 1
+
+while left <= right:
+
+    mid = (left + right) // 2
+
+    if arr[mid] == target:
+        print("Found at index", mid)
+        break
+
+    elif arr[mid] < target:
+        left = mid + 1
+
+    else:
+        right = mid - 1
+        </pre>
+    </section>
+
+    <!-- PRACTICE QUESTIONS -->
+
+    <section class="card">
+        <h2>05. Practice Questions</h2>
+
+        <h3>Beginner</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/binary-search/" target="_blank">
+                1. Binary Search
+            </a>
+        </p>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/search-insert-position/" target="_blank">
+                2. Search Insert Position
+            </a>
+        </p>
+
+        <h3>Intermediate</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/" target="_blank">
+                3. Find First and Last Position of Element
+            </a>
+        </p>
+
+        <h3>Challenge</h3>
+
+        <p class="question">
+            <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank">
+                4. Search in Rotated Sorted Array
+            </a>
+        </p>
+    </section>
+
+    <a href="index.html" class="back">← Back to Home</a>
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+        let binaryArr = [1, 3, 5, 7, 9, 11];
+        let binaryTarget = 7;
+
+        let steps = [
+            { left: 0, right: 5, mid: 2, message: "5 is smaller than 7. Search the right half." },
+            { left: 3, right: 5, mid: 4, message: "9 is greater than 7. Search the left half." },
+            { left: 3, right: 3, mid: 3, message: "Target Found! 7 is at index 3." }
+        ];
+
+        let binaryStep = 0;
+
+        function updateBinary() {
+
+            let boxes = document.querySelectorAll("#binaryArray span");
+
+            let current = steps[binaryStep];
+
+            for (let i = 0; i < binaryArr.length; i++) {
+
+                boxes[i].style.background = "#312e81";
+
+                if (i >= current.left && i <= current.right) {
+                    boxes[i].style.background = "#7c3aed";
+                }
+
+                if (i === current.mid) {
+                    boxes[i].style.background = "#2563eb";
+                }
+            }
+
+            if (binaryStep === 2) {
+                boxes[3].style.background = "#16a34a";
+            }
+
+            document.getElementById("binaryStatus").innerText =
+                "Left: " + current.left + " | Right: " + current.right;
+
+            document.getElementById("binaryMiddle").innerText =
+                "Middle: " + binaryArr[current.mid];
+
+            document.getElementById("binaryMessage").innerText =
+                current.message;
+        }
+
+        function nextBinary() {
+
+            if (binaryStep < steps.length - 1) {
+                binaryStep++;
+                updateBinary();
+            }
+        }
+
+        function previousBinary() {
+
+            if (binaryStep > 0) {
+                binaryStep--;
+                updateBinary();
+            }
+        }
+
+        function resetBinary() {
+
+            binaryStep = 0;
+            updateBinary();
+        }
+
+        updateBinary();
+    </script>
+
+</body>
+</html>

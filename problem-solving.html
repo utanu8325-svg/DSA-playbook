@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem Solving | DSA Playbook</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#0b1020;color:#e8ecf8;line-height:1.7}
+header{padding:22px 8%;background:#111a30;border-bottom:1px solid #26334f}
+header a{color:#a8baff;text-decoration:none;font-weight:bold}
+main{max-width:950px;margin:auto;padding:45px 22px}
+.hero{padding:35px;background:linear-gradient(135deg,#17294b,#20204a);border:1px solid #34456b;border-radius:18px;margin-bottom:28px}
+.tag{color:#9fb5ff;font-size:13px;letter-spacing:2px}
+h1{font-size:38px;margin:8px 0}
+h2{color:#a9bcff;margin:28px 0 12px}
+h3{color:#d5deff;margin:18px 0 8px}
+.card{background:#121b30;border:1px solid #283653;border-radius:14px;padding:22px;margin:18px 0}
+p,li{color:#c5cde0}
+ul,ol{padding-left:22px}
+pre{background:#080d19;color:#a9e6c0;padding:16px;border-radius:10px;overflow-x:auto;margin:12px 0}
+code{font-family:Consolas,monospace}
+.note{color:#a9bcff}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:30px}
+.nav a{background:#263b68;color:white;text-decoration:none;padding:12px 18px;border-radius:9px}
+footer{text-align:center;color:#8995ad;padding:25px}
+</style>
+</head>
+<body>
+<header><a href="index.html">← DSA PLAYBOOK | GDG OIST</a></header>
+<main>
+<section class="hero">
+<div class="tag">ROADMAP 03 / PRACTICE & OPTIMIZATION</div>
+<h1>Problem Solving</h1>
+<p>Learn how to approach coding problems, select the right algorithm and write efficient solutions.</p>
+</section>
+
+<div class="card">
+<h2>1. How to Approach a Problem</h2>
+<ol>
+<li><b>Understand:</b> Read the problem and identify what is given and what is required.</li>
+<li><b>Check examples:</b> Try small inputs and understand the expected output.</li>
+<li><b>Brute force:</b> First think of a simple correct solution.</li>
+<li><b>Optimize:</b> Look for repeated work or unnecessary operations.</li>
+<li><b>Analyze:</b> Calculate time and space complexity.</li>
+<li><b>Test:</b> Check normal cases, edge cases and large inputs.</li>
+</ol>
+<h3>Example: Find the Largest Element</h3>
+<pre><code>arr = [12, 5, 30, 8, 17]
+
+largest = arr[0]
+
+for number in arr:
+    if number > largest:
+        largest = number
+
+print("Largest:", largest)</code></pre>
+<p class="note">Time: O(n) | Extra space: O(1)</p>
+</div>
+
+<div class="card">
+<h2>2. Searching Algorithms</h2>
+<h3>Linear Search</h3>
+<p>Linear Search checks each element one by one until the target is found or the list ends. It works on both sorted and unsorted lists.</p>
+<pre><code>arr = [4, 8, 2, 9, 5]
+target = 9
+found = False
+
+for i in range(len(arr)):
+    if arr[i] == target:
+        print("Found at index", i)
+        found = True
+        break
+
+if not found:
+    print("Not Found")</code></pre>
+<p class="note">Time: O(n) | Extra space: O(1)</p>
+<h3>Binary Search</h3>
+<p>Binary Search works on a sorted list. It repeatedly checks the middle element and removes half of the remaining search space.</p>
+<pre><code>arr = [2, 4, 6, 8, 10, 12]
+target = 8
+left = 0
+right = len(arr) - 1
+
+while left <= right:
+    mid = (left + right) // 2
+
+    if arr[mid] == target:
+        print("Found at index", mid)
+        break
+    elif arr[mid] < target:
+        left = mid + 1
+    else:
+        right = mid - 1</code></pre>
+<p class="note">Time: O(log n) | Extra space: O(1) for this iterative version.</p>
+</div>
+
+<div class="card">
+<h2>3. Sorting Algorithms</h2>
+<h3>Bubble Sort</h3>
+<p>Repeatedly compares adjacent elements and swaps them if they are in the wrong order.</p>
+<pre><code>arr = [5, 2, 8, 1, 3]
+
+for i in range(len(arr)):
+    for j in range(0, len(arr) - i - 1):
+        if arr[j] > arr[j + 1]:
+            arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+print(arr)</code></pre>
+<p class="note">Average/Worst time: O(n²) | Extra space: O(1)</p>
+<h3>Selection Sort</h3>
+<p>Finds the smallest element in the unsorted part and places it at the beginning.</p>
+<pre><code>arr = [64, 25, 12, 22, 11]
+
+for i in range(len(arr)):
+    minimum = i
+
+    for j in range(i + 1, len(arr)):
+        if arr[j] < arr[minimum]:
+            minimum = j
+
+    arr[i], arr[minimum] = arr[minimum], arr[i]
+
+print(arr)</code></pre>
+<p class="note">Time: O(n²) | Extra space: O(1)</p>
+<h3>Insertion Sort</h3>
+<p>Builds a sorted section by inserting each new element into its correct position.</p>
+<pre><code>arr = [5, 3, 4, 1, 2]
+
+for i in range(1, len(arr)):
+    key = arr[i]
+    j = i - 1
+
+    while j >= 0 and arr[j] > key:
+        arr[j + 1] = arr[j]
+        j = j - 1
+
+    arr[j + 1] = key
+
+print(arr)</code></pre>
+<p class="note">Best time: O(n) | Average/Worst: O(n²) | Extra space: O(1)</p>
+<h3>Merge Sort</h3>
+<p>Divides the array into smaller halves, sorts them and merges the sorted halves. It uses recursion.</p>
+<pre><code>def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    result = []
+    i = 0
+    j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i = i + 1
+        else:
+            result.append(right[j])
+            j = j + 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+numbers = [5, 2, 8, 1, 3]
+print(merge_sort(numbers))</code></pre>
+<p class="note">Time: O(n log n) | Extra space: O(n)</p>
+<h3>Quick Sort</h3>
+<p>Selects a pivot, places smaller elements on one side and larger elements on the other, then sorts the parts recursively.</p>
+<pre><code>def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot = arr[-1]
+    smaller = []
+    larger = []
+
+    for number in arr[:-1]:
+        if number <= pivot:
+            smaller.append(number)
+        else:
+            larger.append(number)
+
+    return quick_sort(smaller) + [pivot] + quick_sort(larger)
+
+numbers = [7, 2, 9, 1, 5]
+print(quick_sort(numbers))</code></pre>
+<p class="note">Average time: O(n log n) | Worst time: O(n²). This simple version uses extra lists and is not in-place.</p>
+</div>
+
+<div class="card">
+<h2>4. Recursion</h2>
+<p>Recursion happens when a function calls itself to solve a smaller version of the same problem. Every recursive solution needs a base case to stop.</p>
+<h3>Factorial</h3>
+<pre><code>def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+
+    return n * factorial(n - 1)
+
+print(factorial(5))</code></pre>
+<h3>Fibonacci</h3>
+<pre><code>def fibonacci(n):
+    if n <= 1:
+        return n
+
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+for i in range(7):
+    print(fibonacci(i))</code></pre>
+<p class="note">The simple recursive Fibonacci solution takes O(2ⁿ) time. A more efficient approach uses memoization or iteration.</p>
+<h3>Backtracking Basics</h3>
+<p>Backtracking builds a possible solution step by step. If a choice does not lead to a valid solution, it goes back and tries another choice.</p>
+</div>
+
+<div class="card">
+<h2>5. Important Problem-Solving Patterns</h2>
+<h3>Two Pointers</h3>
+<p>Uses two positions to process an array or string, often moving from opposite ends.</p>
+<pre><code>arr = [1, 2, 3, 4, 6]
+target = 6
+left = 0
+right = len(arr) - 1
+
+while left < right:
+    total = arr[left] + arr[right]
+
+    if total == target:
+        print(arr[left], arr[right])
+        break
+    elif total < target:
+        left = left + 1
+    else:
+        right = right - 1</code></pre>
+<h3>Sliding Window</h3>
+<p>Maintains a window over a sequence to solve problems involving continuous subarrays or substrings.</p>
+<pre><code>arr = [2, 1, 5, 1, 3, 2]
+k = 3
+
+window_sum = 0
+
+for i in range(k):
+    window_sum = window_sum + arr[i]
+
+maximum = window_sum
+
+for i in range(k, len(arr)):
+    window_sum = window_sum + arr[i] - arr[i - k]
+
+    if window_sum > maximum:
+        maximum = window_sum
+
+print(maximum)</code></pre>
+<h3>Fast and Slow Pointers</h3>
+<p>Uses two pointers moving at different speeds. It is commonly used to detect cycles in linked lists.</p>
+<pre><code>slow = head
+fast = head
+
+while fast is not None and fast.next is not None:
+    slow = slow.next
+    fast = fast.next.next
+
+    if slow == fast:
+        print("Cycle detected")
+        break</code></pre>
+<h3>Prefix Sum</h3>
+<p>Stores cumulative sums so range-sum queries can be answered efficiently.</p>
+<pre><code>arr = [2, 4, 6, 8]
+prefix = [0]
+
+for number in arr:
+    prefix.append(prefix[-1] + number)
+
+left = 1
+right = 3
+
+answer = prefix[right + 1] - prefix[left]
+print(answer)</code></pre>
+<p class="note">For a range from index left to right, the sum is prefix[right + 1] - prefix[left].</p>
+</div>
+
+<div class="card">
+<h2>6. Practice Questions</h2>
+<ol>
+<li>Find the largest and smallest element in an array.</li>
+<li>Implement Linear Search and Binary Search.</li>
+<li>Sort an array using Bubble Sort.</li>
+<li>Sort an array using Selection Sort.</li>
+<li>Find the factorial using recursion.</li>
+<li>Find the sum of a fixed-size subarray using Sliding Window.</li>
+<li>Find two numbers whose sum equals a target using Two Pointers.</li>
+<li>Detect a cycle in a linked list.</li>
+<li>Answer a range-sum query using Prefix Sum.</li>
+<li>Compare the time complexity of five sorting algorithms.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>7. What You Should Know Before Moving Ahead</h2>
+<ul>
+<li>Know when to use Linear Search and Binary Search.</li>
+<li>Understand basic sorting algorithms.</li>
+<li>Understand recursion and its base case.</li>
+<li>Recognize common DSA patterns in problems.</li>
+<li>Practice writing solutions and analyzing complexity.</li>
+</ul>
+</div>
+
+<div class="nav">
+<a href="data-structures.html">← Previous: Data Structures</a>
+<a href="index.html">Back to Home</a>
+<a href="advanced-dsa.html">Next: Advanced DSA →</a>
+</div>
+</main>
+<footer>DSA Playbook | GDG OIST</footer>
+</body>
+</html>
